@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:28:44 by shamsate          #+#    #+#             */
-/*   Updated: 2023/09/19 20:05:14 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:44:33 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ void			add_up_to_env(t_shell *m_shell);
 int				check_way(char *cmd, t_shell *cm);
 
 ////
-int findSubstring(const char *str);
+char			*substring_before_equal(char *str);
+int				findsubstring(char *str);
+char			*new_string(char *s);
 
 #endif

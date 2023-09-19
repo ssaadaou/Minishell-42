@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 23:17:41 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 18:01:03 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:33:30 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	check_input(char *s)
 int	check_char(t_shell *cmd, char *s)
 {
 	int	i;
+	int	len;
 
 	if (ft_isdigit(s[0]))
 		return (export_unset_err(cmd->cmnd[0], s));
@@ -74,7 +75,7 @@ int	check_char(t_shell *cmd, char *s)
 	if (s[0] == '=')
 		return (export_unset_err(cmd->cmnd[0], s));
 	i = 0;
-	int len = find_first_equal_or_length(s);
+	len = find_first_equal_or_length(s);
 	while (i < len)
 	{
 		if (check_valid_id(*(s + i)))

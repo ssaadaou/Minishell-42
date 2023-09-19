@@ -26,7 +26,7 @@ PARS = $(addprefix src/parsing/, signal_mshell.c mini_shell_w.c add_arg.c)
 
 
 BUIL = $(addprefix src/builtins/, shell_export/shell_export.c shell_export/shell_export_utils_2.c \
-	shell_export/shell_export_utils_1.c shell_pwd.c shell_echo.c find_p.c shell_exit.c shell_env.c \
+	shell_export/shell_export_utils_1.c shell_export/shell_export_utils_3.c shell_pwd.c shell_echo.c find_p.c shell_exit.c shell_env.c \
 	shell_cd.c shell_unset.c)
 
 
@@ -36,7 +36,7 @@ EXEC = $(addprefix src/executable/, mini_execute.c)
 UTIL = $(addprefix src/utils/, is_all_digit.c ft_substr.c ft_strlen.c ft_strcmp.c ft_strjoin.c ft_strdup.c \
 	ft_split.c ft_putstr_fd.c ft_putchar_fd.c atoi_exit.c ft_lstadd_back.c ft_lstlast.c size_cmd_list.c \
 	ft_lstnew.c ft_calloc.c ft_strncmp.c ft_strlcpy.c ft_memmove.c ft_memcpy.c ft_isalpha.c ft_isalnum.c \
-	ft_strchr.c ft_strcpy.c ft_strstr.c set_size_arg.c)
+	ft_strchr.c ft_strcpy.c ft_strncpy.c ft_strstr.c set_size_arg.c)
 
 
 M_SRCS = minishell.c $(UTIL) $(EXEC) $(PARS) $(BUIL)

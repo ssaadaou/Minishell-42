@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 21:36:06 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 20:11:48 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 22:34:39 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 int	find_first_equal_or_length(char *str)
 {
-    int length = ft_strlen(str);
-    int i;
-	
-	i = 0;
-    while (i < length)
-	{
-        if (str[i] == '=')
-            return (i - 1);
-        i++;
-    }
+	int	len;
+	int	i;
 
-    return (length);
+	i = 0;
+	len = ft_strlen(str);
+	while (i < len)
+	{
+		if (str[i] == '=')
+			return (i - 1);
+		i++;
+	}
+	return (len);
 }
 
 int	search_plus(char *s, char d_quot)
@@ -82,7 +82,7 @@ int	export_unset_err(char *cmd, char *s)
 
 char	*remove_double_quotes(char *str)
 {
-	int len;
+	int	len;
 
 	len = ft_strlen(str);
 	if (len > 0 && str[0] == '"')

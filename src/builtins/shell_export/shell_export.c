@@ -6,35 +6,11 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 22:45:31 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 20:35:18 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 23:43:02 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
-
-char	**loop_add_var(char **arr, char **rtn, const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		if (arr[i + 1] == NULL)
-		{
-			rtn[i] = ft_strdup(str);
-			rtn[i + 1] = ft_strdup(arr[i]);
-		}
-		else
-			rtn[i] = ft_strdup(arr[i]);
-		if (rtn[i] == NULL)
-		{
-			freesplit(rtn, 0);
-			return (rtn);
-		}
-		i++;
-	}
-	return (rtn);
-}
 
 char	**add_var_export(char **shell, char *str)
 {
@@ -53,106 +29,39 @@ char	**add_var_export(char **shell, char *str)
 	return (s);
 }
 
-char *substring_before_equal(const char *str) {
-    // Find the position of the first '=' character in the string
-    const char *equal_sign = strchr(str, '=');
-
-    if (equal_sign != NULL) {
-        // Calculate the length of the substring before '='
-        size_t length = equal_sign - str;
-
-        // Allocate memory for the result buffer
-        char *result = (char *)malloc(length + 1); // +1 for null-termination
-
-        if (result != NULL) {
-            // Copy the substring before '=' into the result buffer
-            strncpy(result, str, length);
-            result[length] = '\0'; // Null-terminate the result
-        }
-
-        return result;
-    } else {
-        // '=' was not found in the string, so return a copy of the input string
-        return strdup(str);
-    }
-}
-
 int	find_command(t_shell *shell_m, char *sh_cmnd)
 {
-	char	**s;
 	int		i;
+	char	*new_add;
+	char	*new_str;
 
 	i = 0;
-	s = shell_m->str;
 	if (sh_cmnd[search_plus(sh_cmnd, '=')] == '\"')
 		remove_quotes(sh_cmnd, '\"');
 	if (sh_cmnd[search_plus(sh_cmnd, '=')] == '\'')
 		remove_quotes(sh_cmnd, '\'');
-	char *new_add = substring_before_equal(sh_cmnd);
-	while (s[i])
+	new_add = substring_before_equal(sh_cmnd);
+	while (shell_m->str[i])
 	{
-		char *new_str = substring_before_equal(s[i]);
+		new_str = substring_before_equal(shell_m->str[i]);
 		if (!ft_strcmp(new_str, new_add))
 		{
-			free(s[i]);
-			s[i] = ft_strdup(sh_cmnd);
-			return (1);
+			free(shell_m->str[i]);
+			free(new_str);
+			shell_m->str[i] = ft_strdup(sh_cmnd);
+			return (free(new_add), 1);
 		}
+		free(new_str);
 		i++;
 	}
-	free(s[i]);
+	free(new_add);
 	return (0);
 }
 
-int findSubstring(const char *str) {
-    int length = strlen(str);
-
-    int i = 0;
-    while ( i < length) {
-        if ((str[i] == '\"' && str[i + 1] == '=') ||
-            (str[i] == '\'' && str[i + 1] == '=')) {
-            return (i);
-        }
-        else
-            i++;
-    }
-
-    return (-1);
-}
-
-char *new_string(char *s)
-{
-    int i;
-    int j;
-    int len;
-    char *s_new;
-
-    s_new = (char *)malloc((strlen(s) + 1) * sizeof(char));
-    if (!s_new)
-        return (NULL);
-    i = 0;
-    j = 0;
-    len = findSubstring(s);
-    while (*(s + i))
-    {
-        if (i == len)
-        {
-            i++;
-            *(s_new + j) = *(s + i);
-        }
-        else
-            *(s_new + j) = *(s + i);
-        j++;
-        i++;
-    }
-    *(s_new + j) = '\0';
-    return (s_new);
-}
-
-void if_qoute_exit(t_shell *shell, char *s)
+void	if_qoute_exit(t_shell *shell, char *s)
 {
 	char	**tmp;
-	
+
 	if (!check_char(shell, s) && !find_command(shell, s))
 	{
 		if (s)
@@ -182,10 +91,11 @@ void	test_export(t_shell *shell_m, int i)
 			shell_m->str = tmp;
 		}
 	}
-	else if (findSubstring(shell_m->cmnd[i]) != -1)
+	else if (findsubstring(shell_m->cmnd[i]) != -1)
 	{
 		str = new_string(shell_m->cmnd[i]);
 		if_qoute_exit(shell_m, str);
+		free(str);
 	}
 	else
 		if_qoute_exit(shell_m, shell_m->cmnd[i]);

@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 18:48:50 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/18 20:15:15 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/20 00:02:50 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,23 @@ bool	check_syntax_cmd(char *env, char *cmnd)
 
 char	**loop_add_env(char *str, char **env, char **cmd)
 {
-	int	i;
-	int	j;
+	char	*new_s;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
 	while (env[i] != NULL)
 	{
-		if (ft_strncmp(env[i], str, search_plus(env[i], '=') - 1))
+		new_s = substring_before_equal(env[i]);
+		if (strcmp(new_s, str))
 		{
-			cmd[j] = ft_strdup(env[i]);
+			cmd[j] = strdup(env[i]);
 			if (!cmd[j])
 				return (freesplit(cmd, 0), cmd);
 			j++;
 		}
+		free(new_s);
 		i++;
 	}
 	return (cmd);
