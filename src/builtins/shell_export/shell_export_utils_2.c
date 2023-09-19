@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 21:36:06 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 17:43:14 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:11:48 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 int	find_first_equal_or_length(char *str)
 {
-	char	*s;
+    int length = ft_strlen(str);
+    int i;
+	
+	i = 0;
+    while (i < length)
+	{
+        if (str[i] == '=')
+            return (i - 1);
+        i++;
+    }
 
-	s = ft_strchr(str, '=');
-	if (s != NULL)
-		return (s - str);
-	else
-		return (ft_strlen(str));
+    return (length);
 }
 
 int	search_plus(char *s, char d_quot)

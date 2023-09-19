@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 22:45:31 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 18:07:57 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/19 20:35:18 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,30 @@ char	**add_var_export(char **shell, char *str)
 	return (s);
 }
 
+char *substring_before_equal(const char *str) {
+    // Find the position of the first '=' character in the string
+    const char *equal_sign = strchr(str, '=');
+
+    if (equal_sign != NULL) {
+        // Calculate the length of the substring before '='
+        size_t length = equal_sign - str;
+
+        // Allocate memory for the result buffer
+        char *result = (char *)malloc(length + 1); // +1 for null-termination
+
+        if (result != NULL) {
+            // Copy the substring before '=' into the result buffer
+            strncpy(result, str, length);
+            result[length] = '\0'; // Null-terminate the result
+        }
+
+        return result;
+    } else {
+        // '=' was not found in the string, so return a copy of the input string
+        return strdup(str);
+    }
+}
+
 int	find_command(t_shell *shell_m, char *sh_cmnd)
 {
 	char	**s;
@@ -64,9 +88,11 @@ int	find_command(t_shell *shell_m, char *sh_cmnd)
 		remove_quotes(sh_cmnd, '\"');
 	if (sh_cmnd[search_plus(sh_cmnd, '=')] == '\'')
 		remove_quotes(sh_cmnd, '\'');
+	char *new_add = substring_before_equal(sh_cmnd);
 	while (s[i])
 	{
-		if (!ft_strncmp(s[i], sh_cmnd, find_first_equal_or_length(s[i])))
+		char *new_str = substring_before_equal(s[i]);
+		if (!ft_strcmp(new_str, new_add))
 		{
 			free(s[i]);
 			s[i] = ft_strdup(sh_cmnd);
@@ -78,9 +104,70 @@ int	find_command(t_shell *shell_m, char *sh_cmnd)
 	return (0);
 }
 
+int findSubstring(const char *str) {
+    int length = strlen(str);
+
+    int i = 0;
+    while ( i < length) {
+        if ((str[i] == '\"' && str[i + 1] == '=') ||
+            (str[i] == '\'' && str[i + 1] == '=')) {
+            return (i);
+        }
+        else
+            i++;
+    }
+
+    return (-1);
+}
+
+char *new_string(char *s)
+{
+    int i;
+    int j;
+    int len;
+    char *s_new;
+
+    s_new = (char *)malloc((strlen(s) + 1) * sizeof(char));
+    if (!s_new)
+        return (NULL);
+    i = 0;
+    j = 0;
+    len = findSubstring(s);
+    while (*(s + i))
+    {
+        if (i == len)
+        {
+            i++;
+            *(s_new + j) = *(s + i);
+        }
+        else
+            *(s_new + j) = *(s + i);
+        j++;
+        i++;
+    }
+    *(s_new + j) = '\0';
+    return (s_new);
+}
+
+void if_qoute_exit(t_shell *shell, char *s)
+{
+	char	**tmp;
+	
+	if (!check_char(shell, s) && !find_command(shell, s))
+	{
+		if (s)
+		{
+			tmp = add_var_export(shell->str, s);
+			freesplit(shell->str, 0);
+			shell->str = tmp;
+		}
+	}
+}
+
 void	test_export(t_shell *shell_m, int i)
 {
 	char	**tmp;
+	char	*str;
 	char	*new_s;
 
 	new_s = remove_double_quotes(shell_m->cmnd[i]);
@@ -95,16 +182,13 @@ void	test_export(t_shell *shell_m, int i)
 			shell_m->str = tmp;
 		}
 	}
-	else if (!check_char(shell_m, shell_m->cmnd[i]) && !find_command(shell_m, \
-	shell_m->cmnd[i]))
+	else if (findSubstring(shell_m->cmnd[i]) != -1)
 	{
-		if (shell_m->cmnd[i])
-		{
-			tmp = add_var_export(shell_m->str, shell_m->cmnd[i]);
-			freesplit(shell_m->str, 0);
-			shell_m->str = tmp;
-		}
+		str = new_string(shell_m->cmnd[i]);
+		if_qoute_exit(shell_m, str);
 	}
+	else
+		if_qoute_exit(shell_m, shell_m->cmnd[i]);
 }
 
 void	shell_export(t_shell *sh)
