@@ -1,22 +1,13 @@
 #include "include/minishell.h"
-#include <string.h>
-//yes
-int	find_first_equal_or_length_1(char *str)
-{
-	int	len;
-	int	i;
 
-	i = 0;
-	len = ft_strlen(str);
-	while (i < len)
-	{
-		if (str[i] == '=')
-			return (i + 1);
-		i++;
-	}
-	return (len);
+char	*extract_after_equal(char *s)
+{
+	int pos;
+
+	pos = find_first_equal_or_length_1(s);
+	return (ft_strdup(s + pos));
 }
-//yes
+
 char	*extract_before_plus(char *s)
 {
 	char	*pos;
@@ -34,28 +25,7 @@ char	*extract_before_plus(char *s)
 	new_s[len] = '\0';
 	return (new_s);
 }
-//yes
-char	*extract_after_equal(char *s)
-{
-	int pos;
 
-	pos = find_first_equal_or_length_1(s);
-	return (ft_strdup(s + pos));
-}
-
-
-//yes
-int	check_valid_id_1(char c)
-{
-	return (c == '|' || c == '<' || c == '>' || c == '[' || \
-	c == ']' || c == '\'' || c == '\"' || c == ' ' || \
-	c == ',' || c == '.' || c == ':' || c == '/' || \
-	c == '{' || c == '}' || c == '+' || c == '^' || \
-	c == '%' || c == '#' || c == '@' || c == '!' || \
-	c == '~' || c == '=' || c == '-' || c == '?' || \
-	c == '&' || c == '*');
-}
-//yes
 bool	check_para(char *s)
 {
 	int	i;
@@ -66,17 +36,17 @@ bool	check_para(char *s)
 	if (s[0] == '=')
 		return (false);
 	i = 0;
-	len = find_first_equal_or_length_1(s);
+	len = find_first_equal_or_length(s);
 	while (i < len)
 	{
-		if (check_valid_id_1(*(s + i)))
+		if (check_valid_id(*(s + i)))
 			return (false);
 		i++;
 	}
 	return (true);
 }
-//yes
-bool	check_plus_egal(char *s)
+
+bool	check_plus_equal(char *s)
 {
 	int		i;
 	int		len;
@@ -102,7 +72,6 @@ bool	check_plus_egal(char *s)
 	}
 	return (true);
 }
-
 
 char	*extract_before_equal(char *s)
 {
@@ -151,37 +120,4 @@ char	**add_if_plus_exit(char **s, char *s_add)
 	}
 	new_s[j] = NULL;
 	return (new_s);
-}
-
-int main(int ac, char **str)
-{
-    char *name_before_plus = extract_before_plus(str[1]);
-    char *name_after_equal = extract_after_equal(str[1]);
-    char *s[] = {
-        "na_me=John",
-        "age=52",
-        "ciy=New York",
-        "name=Jane",
-        "name_1=holls",
-        NULL // NULL-terminated array
-    };
-
-    printf("--->%s\n", name_before_plus);
-    printf("--->%s\n", name_after_equal);
-
-    printf("\n\n-------------><-------------\n\n");
-    int i = 0;
-    while (s[i])
-    {
-        printf("%s ---> Yes\n", s[i]);
-        i++;
-    }
-    printf("\n\n-------------><-------------\n\n");
-    char **new_s = add_if_plus_exit(s, str[1]); 
-    i = 0;
-    while (new_s[i])
-    {
-        printf("%s ---> Yes\n", new_s[i]);
-        i++;
-    }
 }

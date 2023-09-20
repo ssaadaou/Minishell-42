@@ -1,33 +1,5 @@
 #include "include/minishell.h"
 
-
-bool	check_plus_egal(char *s)
-{
-	int		i;
-	int		len;
-	size_t	length;
-	char	*plus_pos;
-
-	if (ft_isdigit(s[0]))
-		return (false);
-	plus_pos = ft_strstr(s, "+=");
-	if (!plus_pos)
-		return (false);
-	length = plus_pos - s;
-	if (length > 0 && (s[length - 1] == '\'' || s[length - 1] == '\"'))
-		len = length -1;
-	else
-		len = length;
-	i = 0;
-	while (i < len)
-	{
-		if (!ft_isalnum(s[i]) && s[i] != '_')
-			return (false);
-		i++;
-	}
-	return (true);
-}
-
 char	*extract_before_plus(char *s)
 {
 	char	*pos;
@@ -55,23 +27,6 @@ char	*extract_after_equal(char *s)
 }
 
 
-char	*extract_before_egal(char *s)
-{
-	char	*pos;
-	size_t	len;
-	char	*new_s;
-
-	pos = strchr(s, '=');
-	if (!pos)
-		return (NULL);
-	len = pos - s;
-	new_s = (char *)malloc((len + 1) * sizeof(char));
-	if (!new_s)
-		return (NULL);
-	ft_strncpy(new_s, s, len);
-	new_s[len] = '\0';
-	return (new_s);
-}
 
 char	**add_if_plus_exit(char **s, char *s_add)
 {
