@@ -6,11 +6,16 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 17:56:46 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/21 03:31:46 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:44:02 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
+
+void ok(void)
+{
+	system("leaks Minishell");
+}
 
 int	main(int ac, char **str, char **env)
 {
@@ -33,5 +38,6 @@ int	main(int ac, char **str, char **env)
 	}
 	freesplit(cmd->str, 0);
 	free(cmd);
+	atexit(ok);
 	return (0);
 }

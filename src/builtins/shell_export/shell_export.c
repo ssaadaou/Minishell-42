@@ -6,13 +6,13 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 22:45:31 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/21 03:48:03 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:09:05 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/minishell.h"
 
-char	**add_var_export(char **shell, char *str)
+char	** add_var_export(char **shell, char *str)
 {
 	char	**s;
 	int		len;
@@ -46,7 +46,6 @@ int	find_command(t_shell *shell_m, char *sh_cmnd)
 		new_str = substring_before_equal(shell_m->str[i]);
 		if (!ft_strcmp(new_str, new_add))
 		{
-			free((char *)shell_m->str[i]);
 			free(new_str);
 			shell_m->str[i] = ft_strdup(sh_cmnd);
 			return (free(new_add), 1);

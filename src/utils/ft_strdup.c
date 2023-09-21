@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 16:43:29 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/09 14:14:58 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:49:55 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strdup(const char *s)
 	char	*str;
 	size_t	i;
 
-	str = (char *)malloc(ft_strlen(s) + 1 * sizeof(char ));
+	str = (char *)malloc(ft_strlen(s) + 1 * sizeof(char));
 	if (!str)
 		return (str);
 	i = -1;

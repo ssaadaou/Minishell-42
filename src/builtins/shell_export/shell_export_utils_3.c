@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:43:00 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/21 03:30:12 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 23:11:08 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*new_string(char *s)
 	return (s_new);
 }
 
-char	**loop_add_var(char **arr, char **rtn, const char *str)
+char	**loop_add_var(char **arr, char **rtn, char *str)
 {
 	int	i;
 

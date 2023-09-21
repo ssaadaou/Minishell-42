@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:28:44 by shamsate          #+#    #+#             */
-/*   Updated: 2023/09/21 03:10:10 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:51:02 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ int				find_first_equal_or_length(char *str);
 char			**add_var_export(char **shell, char *str);
 int				find_command(t_shell *shell_m, char *sh_cmnd);
 bool			check_command_export(t_shell *sh_m, char *cmd);
-char			**loop_add_var(char **arr, char **rtn, const char *str);
+char			**loop_add_var(char **arr, char **rtn, char *str);
 
 //x:---> "env":
 void			shell_env(t_shell *cmd);
