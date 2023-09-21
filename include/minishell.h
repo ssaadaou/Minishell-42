@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 17:28:44 by shamsate          #+#    #+#             */
-/*   Updated: 2023/09/19 22:44:33 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 03:10:10 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,14 +120,17 @@ void			free_minishell(t_shell *shell);
 char			*find_path(t_shell *mini_s, char *find);
 
 //x:---> "export":
+char			*new_string(char *s);
 int				check_input(char *s);
 int				check_valid_id(char c);
+int				findsubstring(char *str);
 void			shell_export(t_shell *sh);
 char			*remove_quotes(char *s, char c);
 char			*remove_double_quotes(char *str);
 char			*ft_strd(char *s, t_shell *sh_m);
 int				check_char(t_shell *cmd, char *s);
 int				search_plus(char *s, char d_quot);
+char			*substring_before_equal(char *str);
 void			test_export(t_shell *shell_m, int i);
 int				export_unset_err(char *cmd, char *s);
 int				find_first_equal_or_length(char *str);
@@ -165,8 +168,10 @@ void			add_up_to_env(t_shell *m_shell);
 int				check_way(char *cmd, t_shell *cm);
 
 ////
-char			*substring_before_equal(char *str);
-int				findsubstring(char *str);
-char			*new_string(char *s);
+char			*extract_before_plus(char *s);
+char			*extract_after_equal(char *s);
+char			*extract_before_equal(char *s);
+int				check_plus_equal(t_shell *cmd, char *s);
+char			**add_if_plus_exit(char **s, char *s_add);
 
 #endif

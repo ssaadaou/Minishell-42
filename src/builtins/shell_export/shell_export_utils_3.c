@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 22:43:00 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 22:50:06 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 03:30:12 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ char	*substring_before_equal(char *str)
 	equal_sign = ft_strchr(str, '=');
 	if (equal_sign != NULL)
 	{
+		if (equal_sign != str && *(equal_sign - 1) == '+')
+			equal_sign--;
 		length = equal_sign - str;
 		result = (char *)malloc(length + 1);
 		if (result != NULL)

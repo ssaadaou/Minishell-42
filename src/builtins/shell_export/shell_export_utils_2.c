@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 21:36:06 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/19 22:34:39 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/20 21:10:29 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	find_first_equal_or_length(char *str)
 	while (i < len)
 	{
 		if (str[i] == '=')
-			return (i - 1);
+			return (i);
 		i++;
 	}
 	return (len);

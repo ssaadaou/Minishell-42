@@ -11,7 +11,7 @@ CC      = cc
 
 RM      = rm -rf
 
-CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = -Wall -Wextra -Werror -g #-fsanitize=address
 
 READLINE = -lreadline
 
@@ -26,7 +26,7 @@ PARS = $(addprefix src/parsing/, signal_mshell.c mini_shell_w.c add_arg.c)
 
 
 BUIL = $(addprefix src/builtins/, shell_export/shell_export.c shell_export/shell_export_utils_2.c \
-	shell_export/shell_export_utils_1.c shell_export/shell_export_utils_3.c shell_pwd.c shell_echo.c find_p.c shell_exit.c shell_env.c \
+	shell_export/shell_export_utils_1.c shell_export/shell_export_utils_3.c shell_export/shell_export_utils_4.c shell_pwd.c shell_echo.c find_p.c shell_exit.c shell_env.c \
 	shell_cd.c shell_unset.c)
 
 
