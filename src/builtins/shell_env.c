@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:58:12 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/17 22:28:15 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:23:10 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,20 @@ char	*ft_strd(char *s, t_shell *sh_m)
 	return (str);
 }
 
+void check_env_export(char *s, char *cmnd)
+{
+	if (search_plus(s, '=') && ft_strcmp(cmnd, "export"))
+	{
+		ft_putstr_fd(s, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+	else if (ft_strcmp(cmnd, "env"))
+	{
+		ft_putstr_fd(s, STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+	}
+}
+
 void	shell_env(t_shell *cmd)
 {
 	int		i;
@@ -61,8 +75,7 @@ void	shell_env(t_shell *cmd)
 		else
 			tmp = "";
 		s = ft_strjoin(tmp, cmd->cp);
-		ft_putstr_fd(s, STDOUT_FILENO);
-		ft_putchar_fd('\n', STDOUT_FILENO);
+		check_env_export(s, cmnd);
 		if (!ft_strcmp(cmnd, "export"))
 			free(cmd->cp);
 		free(s);
