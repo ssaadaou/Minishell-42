@@ -6,7 +6,7 @@
 /*   By: ylamsiah <ylamsiah@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 15:55:47 by ylamsiah          #+#    #+#             */
-/*   Updated: 2023/09/18 01:06:17 by ylamsiah         ###   ########.fr       */
+/*   Updated: 2023/09/21 20:05:27 by ylamsiah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,31 +28,27 @@ bool	is_single_hyphen_n(char *s)
 	}
 	return (true);
 }
-
 void	shell_echo(t_shell *cmd)
 {
-	char	**s;
-	int		i;
-	bool	shell_test;
+    int		i;
+    char	**s;
+    bool	shell_test;
 
-	shell_test = true;
+	i = 1;
 	s = cmd->cmnd;
-	if (is_single_hyphen_n(s[1]))
+	shell_test = true;
+    while (s[i] && is_single_hyphen_n(s[i]))
+	{
 		shell_test = false;
-	else
-	{
-		ft_putstr_fd(s[1], STDOUT_FILENO);
-		if (s[2] != NULL)
-			ft_putchar_fd(' ', STDOUT_FILENO);
-	}
-	i = 2;
-	while (s[i] != NULL)
-	{
-		ft_putstr_fd(s[i], STDOUT_FILENO);
-		if (s[i + 1] != NULL)
-			ft_putchar_fd(' ', STDOUT_FILENO);
-		i++;
-	}
-	if (shell_test)
-		ft_putchar_fd('\n', STDOUT_FILENO);
+        i++;
+    }
+    while (s[i] != NULL)
+    {
+        ft_putstr_fd(s[i], STDOUT_FILENO);
+        if (s[i + 1] != NULL)
+            ft_putchar_fd(' ', STDOUT_FILENO);
+        i++;
+    }
+    if (shell_test)
+        ft_putchar_fd('\n', STDOUT_FILENO);
 }
