@@ -52,17 +52,17 @@ void execute_cmd(char *path, char **tab)
         wait(NULL);
 }
 
-// input = readline("minishell$: ");
-//         if(!input)
-//             exit(0);
-//         char **cmd = ft_split(input, ' ');
-//         if(ft_strcmp(cmd[0], "echo") == 0)
-//             my_echo(cmd);
-//         else if(ft_strcmp(cmd[0], "cd") == 0)
-//             my_cd(cmd, l_env);
-//         else if(ft_strcmp(cmd[0], "export") == 0)
-//             my_export(cmd, l_env);
-//         else if(ft_strcmp(input, "unset") == 0)
-//             my_unset(cmd, l_env);
-//         path = find_path(cmd[0], l_env);
-//         execute_cmd(path, cmd);
+input = readline("minishell$: ");
+        if(!input)
+            exit(0);
+        char **cmd = ft_split(input, ' ');
+        if(ft_strcmp(cmd[0], "echo") == 0)
+            my_echo(cmd);
+        else if(ft_strcmp(cmd[0], "cd") == 0)
+            my_cd(cmd, l_env);
+        else if(ft_strcmp(cmd[0], "export") == 0)
+            my_export(cmd, l_env);
+        else if(ft_strcmp(input, "unset") == 0)
+            my_unset(cmd, l_env);
+        path = find_path(cmd[0], l_env);
+        execute_cmd(path, cmd);
